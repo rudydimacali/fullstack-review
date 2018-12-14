@@ -19,10 +19,20 @@ class App extends React.Component {
       url: "/repos",
       data: { username: term },
       success: response => {
-        // console.log(response);
+        $.ajax({
+          type: "GET",
+          url: "/repos",
+          data: { username: response },
+          success: getResponse => {
+            this.setState({ repos: getResponse });
+          },
+          error: error => {
+            console.log("Error!");
+          }
+        });
       },
       error: error => {
-        // console.log(error);
+        console.log("Error!");
       }
     });
   }

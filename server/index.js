@@ -1,6 +1,6 @@
 const express = require("express");
 const githubHelper = require("../helpers/github.js");
-const writeToDatabase = require("../database");
+const repoDatabase = require("../database");
 const bodyParser = require("body-parser");
 let app = express();
 
@@ -12,17 +12,24 @@ app.post("/repos", function(req, res) {
   // This route should take the github username provided
   // and get the repo information from the github API, then
   // save the repo information in the database
-  let userRepos = githubHelper.getReposByUsername(
-    req.body.username,
-    response => {
-      writeToDatabase.save(response);
-    }
-  );
+  githubHelper.getReposByUsername(req.body.username, response => {
+    repoDatabase.save(response, () => {
+      res.send(req.body.username);
+    });
+  });
 });
 
 app.get("/repos", function(req, res) {
   // TODO - your code here!
   // This route should send back the top 25 repos
+  repoDatabase.getRepos(req.url.split("=")[1], (err, response) => {
+    if (err) {
+      throw err;
+    } else {
+      console.log("in server", response);
+      res.send(response);
+    }
+  });
 });
 
 let port = 1128;

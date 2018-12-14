@@ -27,7 +27,7 @@ let repoSchema = new mongoose.Schema({
 
 let Repo = mongoose.model("Repo", repoSchema);
 
-let save = repoArray => {
+let save = (repoArray, callback) => {
   // TODO: Your code here
   // This function should save a repo or repos to
   // the MongoDB
@@ -43,9 +43,24 @@ let save = repoArray => {
             console.log("Success!");
           }
         });
+      } else {
+        console.log("Repo exists in database!");
       }
     });
+  });
+  callback();
+};
+
+let getRepos = (username, callback) => {
+  let criteria = { "owner.login": { $regex: username } };
+  return Repo.find(criteria, (err, repoList) => {
+    if (err) {
+      callback(err);
+    } else {
+      callback(null, repoList);
+    }
   });
 };
 
 module.exports.save = save;
+module.exports.getRepos = getRepos;
