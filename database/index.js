@@ -11,32 +11,19 @@ let repoSchema = new mongoose.Schema({
 {
     id: Number,
     name: String,
-    full_name: String,
     owner: {
+      login: String,
       avatar_url: String,
-      gravatar_id: String,
-      html_url: String,
-      repos_url: String,
+      html_url: String
     },
-    private: Boolean,
     html_url: String,
     description: String,
-    fork: Boolean,
     created_at: Date,
     updated_at: Date,
-    pushed_at: String,
-    size: Number,
     stargazers_count: Number,
     watchers_count: Number,
-    has_issues: Boolean,
-    has_downloads: Boolean,
-    has_wiki: Boolean,
-    has_pages: Boolean,
     forks_count: Number,
-    open_issues_count: Number,
-    forks: Number,
     open_issues: Number,
-    watchers: Number,
   }
 });
 
