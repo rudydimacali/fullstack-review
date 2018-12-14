@@ -31,7 +31,21 @@ let save = repoArray => {
   // TODO: Your code here
   // This function should save a repo or repos to
   // the MongoDB
-  console.log(repoArray);
+  repoArray.forEach(repo => {
+    Repo.find({ id: repo.id }, (err, repoList) => {
+      if (err) {
+        throw err;
+      } else if (repoList.length === 0) {
+        Repo.create(repo, err => {
+          if (err) {
+            throw err;
+          } else {
+            console.log("Success!");
+          }
+        });
+      }
+    });
+  });
 };
 
 module.exports.save = save;
