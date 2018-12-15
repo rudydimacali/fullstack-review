@@ -28,7 +28,6 @@ let repoSchema = new mongoose.Schema({
 let Repo = mongoose.model("Repo", repoSchema);
 
 let save = (repoArray, callback) => {
-  // TODO: Your code here
   // This function should save a repo or repos to
   // the MongoDB
   repoArray.forEach(repo => {
@@ -54,30 +53,30 @@ let save = (repoArray, callback) => {
 let getRepos = callback => {
   // Method 1 for Asynchronous Work
   // -----------------------------------
-  Repo.find(
-    null,
-    null,
-    { sort: "-forks_count", limit: 25 },
-    (err, repoList) => {
-      if (err) {
-        callback(err);
-      } else {
-        callback(null, repoList);
-      }
-    }
-  );
+  // Repo.find(
+  //   null,
+  //   null,
+  //   { sort: "-forks_count", limit: 25 },
+  //   (err, repoList) => {
+  //     if (err) {
+  //       callback(err);
+  //     } else {
+  //       callback(null, repoList);
+  //     }
+  //   }
+  // );
 
   // Method 2 for Asynchronous Work
   // -------------------------------
-  // Repo.find((err, repoList) => {
-  //   if (err) {
-  //     callback(err);
-  //   } else {
-  //     callback(null, repoList);
-  //   }
-  // })
-  //   .sort("-forks_count")
-  //   .limit(25);
+  Repo.find((err, repoList) => {
+    if (err) {
+      callback(err);
+    } else {
+      callback(null, repoList);
+    }
+  })
+    .sort("-forks_count")
+    .limit(25);
 };
 
 module.exports.save = save;
