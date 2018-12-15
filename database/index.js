@@ -52,16 +52,32 @@ let save = (repoArray, callback) => {
 };
 
 let getRepos = callback => {
-  Repo.find()
-    .sort("-forks_count")
-    .limit(25)
-    .exec((err, repoList) => {
+  // Method 1 for Asynchronous Work
+  // -----------------------------------
+  Repo.find(
+    null,
+    null,
+    { sort: "-forks_count", limit: 25 },
+    (err, repoList) => {
       if (err) {
         callback(err);
       } else {
         callback(null, repoList);
       }
-    });
+    }
+  );
+
+  // Method 2 for Asynchronous Work
+  // -------------------------------
+  // Repo.find((err, repoList) => {
+  //   if (err) {
+  //     callback(err);
+  //   } else {
+  //     callback(null, repoList);
+  //   }
+  // })
+  //   .sort("-forks_count")
+  //   .limit(25);
 };
 
 module.exports.save = save;

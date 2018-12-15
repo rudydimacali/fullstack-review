@@ -27,6 +27,7 @@ class App extends React.Component {
           type: "GET",
           url: "/repos",
           success: getResponse => {
+            // console.log(getResponse);
             this.setState({ repos: getResponse });
           },
           error: error => {
