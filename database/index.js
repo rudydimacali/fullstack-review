@@ -30,6 +30,7 @@ let Repo = mongoose.model("Repo", repoSchema);
 let save = (repoArray, callback) => {
   // This function should save a repo or repos to
   // the MongoDB
+  let counter = 0;
   repoArray.forEach(repo => {
     Repo.find({ id: repo.id }, (err, repoList) => {
       if (err) {
@@ -40,26 +41,40 @@ let save = (repoArray, callback) => {
             throw err;
           } else {
             console.log("Success!");
+            counter++;
+            if (counter === repoArray.length) {
+              callback();
+            }
           }
         });
       } else {
         console.log("Repo exists in database!");
+        counter++;
+        if (counter === repoArray.length) {
+          callback();
+        }
       }
     });
   });
-  callback();
 };
 
 let getRepoSort = (criteria, callback) => {
-  Repo.find((err, repoList) => {
+  Repo.countDocuments((err, count) => {
     if (err) {
       callback(err);
     } else {
-      callback(null, repoList);
+      Repo.find()
+        .sort(`-${criteria}`)
+        .limit(25)
+        .exec((err, repoList) => {
+          if (err) {
+            callback(err);
+          } else {
+            callback(null, repoList, count);
+          }
+        });
     }
-  })
-    .sort(`-${criteria}`)
-    .limit(25);
+  });
 };
 
 let getRepos = callback => {
@@ -80,15 +95,22 @@ let getRepos = callback => {
 
   // Method 2 for Asynchronous Work
   // -------------------------------
-  Repo.find((err, repoList) => {
+  Repo.countDocuments((err, count) => {
     if (err) {
       callback(err);
     } else {
-      callback(null, repoList);
+      Repo.find()
+        .sort("-forks_count")
+        .limit(25)
+        .exec((err, repoList) => {
+          if (err) {
+            callback(err);
+          } else {
+            callback(null, repoList, count);
+          }
+        });
     }
-  })
-    .sort("-forks_count")
-    .limit(25);
+  });
 };
 
 module.exports.save = save;

@@ -9,7 +9,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      repos: []
+      repos: [],
+      count: 0
     };
     this.RepoTableDisplay = this.RepoTableDisplay.bind(this);
     this.searchSort = this.searchSort.bind(this);
@@ -29,7 +30,7 @@ class App extends React.Component {
           url: "/repos",
           success: getResponse => {
             // console.log(getResponse);
-            this.setState({ repos: getResponse });
+            this.setState({ repos: getResponse[0], count: getResponse[1] });
           },
           error: error => {
             console.log("Error!");
@@ -56,7 +57,7 @@ class App extends React.Component {
       url: "/repoSort",
       data: { criteria: criteria },
       success: getResponse => {
-        this.setState({ repos: getResponse });
+        this.setState({ repos: getResponse[0], count: getResponse[1] });
       },
       error: error => {
         console.log("Error!");
@@ -112,7 +113,7 @@ class App extends React.Component {
     return (
       <div>
         <h1>Github Fetcher</h1>
-        <RepoList repos={this.state.repos} />
+        <RepoList repos={this.state.repos} count={this.state.count} />
         <Search onSearch={this.search.bind(this)} />
         <this.RepoTableDisplay />
       </div>

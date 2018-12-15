@@ -22,21 +22,21 @@ app.post("/repos", function(req, res) {
 
 app.get("/repos", function(req, res) {
   // This route should send back the top 25 repos
-  repoDatabase.getRepos((err, response) => {
+  repoDatabase.getRepos((err, repos, count) => {
     if (err) {
       res.send(err);
     } else {
-      res.send(response);
+      res.send([repos, count]);
     }
   });
 });
 
 app.get("/repoSort", function(req, res) {
-  repoDatabase.getRepoSort(req.url.split("=")[1], (err, response) => {
+  repoDatabase.getRepoSort(req.url.split("=")[1], (err, repos, count) => {
     if (err) {
       res.send(err);
     } else {
-      res.send(response);
+      res.send([repos, count]);
     }
   });
 });
