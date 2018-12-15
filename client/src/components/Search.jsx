@@ -22,7 +22,7 @@ class Search extends React.Component {
 
   render() {
     return (
-      <div id="topnav">
+      <div>
         <h4>Add more repos!</h4>
         Enter a github username: <br />
         <input value={this.state.terms} onChange={this.onChange} />

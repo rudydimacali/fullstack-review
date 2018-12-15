@@ -11,10 +11,8 @@ app.post("/repos", function(req, res) {
   // This route should take the github username provided
   // and get the repo information from the github API, then
   // save the repo information in the database
-  githubHelper.getReposByUsername(req.body.username, (err, response) => {
-    if (err) {
-      res.send("User does not exist!");
-    } else {
+  githubHelper.getReposByUsername(req.body.username, response => {
+    if (!response.message) {
       repoDatabase.save(response, () => {
         res.send(req.body.username);
       });
@@ -26,7 +24,7 @@ app.get("/repos", function(req, res) {
   // This route should send back the top 25 repos
   repoDatabase.getRepos((err, response) => {
     if (err) {
-      throw err;
+      res.send(err);
     } else {
       res.send(response);
     }

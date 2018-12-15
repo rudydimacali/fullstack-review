@@ -4,8 +4,9 @@ body {
   background-image: url('https://cdn.inspirationhut.net/wp-content/uploads/2014/09/crisp-lined-paper-seamless-pattern.jpg');
 }
 
-.topnav {
+div {
   margin: 0 auto;
+  text-align: center;
 }
 
 table {
