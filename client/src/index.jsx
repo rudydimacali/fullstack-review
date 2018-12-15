@@ -12,6 +12,7 @@ class App extends React.Component {
       repos: []
     };
     this.RepoTableDisplay = this.RepoTableDisplay.bind(this);
+    this.searchSort = this.searchSort.bind(this);
   }
   componentDidMount() {
     this.search("rudydimacali");
@@ -34,6 +35,28 @@ class App extends React.Component {
             console.log("Error!");
           }
         });
+      },
+      error: error => {
+        console.log("Error!");
+      }
+    });
+  }
+  searchSort(e) {
+    e.preventDefault();
+    let criteria;
+    if (e.target.innerHTML === "Stars") {
+      criteria = "stargazers_count";
+    } else if (e.target.innerHTML === "Watchers") {
+      criteria = "watchers_count";
+    } else if (e.target.innerHTML === "Forks") {
+      criteria = "forks_count";
+    }
+    $.ajax({
+      type: "GET",
+      url: "/repoSort",
+      data: { criteria: criteria },
+      success: getResponse => {
+        this.setState({ repos: getResponse });
       },
       error: error => {
         console.log("Error!");
@@ -76,9 +99,9 @@ class App extends React.Component {
             <th>Repo Name</th>
             <th>Created</th>
             <th>Last Updated</th>
-            <th>Stars</th>
-            <th>Watchers</th>
-            <th>Forks</th>
+            <th onClick={this.searchSort}>Stars</th>
+            <th onClick={this.searchSort}>Watchers</th>
+            <th onClick={this.searchSort}>Forks</th>
           </tr>
           {reposDisplay}
         </table>

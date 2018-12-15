@@ -50,6 +50,18 @@ let save = (repoArray, callback) => {
   callback();
 };
 
+let getRepoSort = (criteria, callback) => {
+  Repo.find((err, repoList) => {
+    if (err) {
+      callback(err);
+    } else {
+      callback(null, repoList);
+    }
+  })
+    .sort(`-${criteria}`)
+    .limit(25);
+};
+
 let getRepos = callback => {
   // Method 1 for Asynchronous Work
   // -----------------------------------
@@ -81,3 +93,4 @@ let getRepos = callback => {
 
 module.exports.save = save;
 module.exports.getRepos = getRepos;
+module.exports.getRepoSort = getRepoSort;
