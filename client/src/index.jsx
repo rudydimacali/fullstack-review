@@ -22,7 +22,6 @@ class App extends React.Component {
         $.ajax({
           type: "GET",
           url: "/repos",
-          data: { username: response },
           success: getResponse => {
             this.setState({ repos: getResponse });
           },

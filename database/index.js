@@ -51,15 +51,17 @@ let save = (repoArray, callback) => {
   callback();
 };
 
-let getRepos = (username, callback) => {
-  let criteria = { "owner.login": { $regex: username } };
-  return Repo.find(criteria, (err, repoList) => {
-    if (err) {
-      callback(err);
-    } else {
-      callback(null, repoList);
-    }
-  });
+let getRepos = callback => {
+  return Repo.find()
+    .sort("-forks_count")
+    .limit(25)
+    .exec((err, repoList) => {
+      if (err) {
+        callback(err);
+      } else {
+        callback(null, repoList);
+      }
+    });
 };
 
 module.exports.save = save;

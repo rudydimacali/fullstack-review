@@ -22,11 +22,10 @@ app.post("/repos", function(req, res) {
 app.get("/repos", function(req, res) {
   // TODO - your code here!
   // This route should send back the top 25 repos
-  repoDatabase.getRepos(req.url.split("=")[1], (err, response) => {
+  repoDatabase.getRepos((err, response) => {
     if (err) {
       throw err;
     } else {
-      console.log("in server", response);
       res.send(response);
     }
   });
