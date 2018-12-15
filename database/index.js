@@ -78,23 +78,6 @@ let getRepoSort = (criteria, callback) => {
 };
 
 let getRepos = callback => {
-  // Method 1 for Asynchronous Work
-  // -----------------------------------
-  // Repo.find(
-  //   null,
-  //   null,
-  //   { sort: "-forks_count", limit: 25 },
-  //   (err, repoList) => {
-  //     if (err) {
-  //       callback(err);
-  //     } else {
-  //       callback(null, repoList);
-  //     }
-  //   }
-  // );
-
-  // Method 2 for Asynchronous Work
-  // -------------------------------
   Repo.countDocuments((err, count) => {
     if (err) {
       callback(err);
