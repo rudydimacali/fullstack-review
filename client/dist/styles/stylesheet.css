@@ -35,6 +35,11 @@ img {
   width: 100px;
 }
 
+#github {
+  width:200px;
+  height: 200px;
+}
+
 a {
   color: rgb(86,193,255);
 }

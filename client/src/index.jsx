@@ -87,7 +87,6 @@ class App extends React.Component {
             {format(Date.parse(repo.updated_at), "MMM Do, YYYY")}
           </td>
           <td>{repo.stargazers_count}</td>
-          <td>{repo.watchers_count}</td>
           <td>{repo.forks_count}</td>
         </tr>
       );
@@ -101,7 +100,6 @@ class App extends React.Component {
             <th>Created</th>
             <th>Last Updated</th>
             <th onClick={this.searchSort}>Stars</th>
-            <th onClick={this.searchSort}>Watchers</th>
             <th onClick={this.searchSort}>Forks</th>
           </tr>
           {reposDisplay}
@@ -112,7 +110,11 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>Github Fetcher</h1>
+        <h1>
+          <img id="github" src="./img/github.png" />
+          <br />
+          Fetcher
+        </h1>
         <RepoList repos={this.state.repos} count={this.state.count} />
         <Search onSearch={this.search.bind(this)} />
         <this.RepoTableDisplay />
