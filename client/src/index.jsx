@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import $ from "jquery";
 import Search from "./components/Search.jsx";
 import RepoList from "./components/RepoList.jsx";
+let format = require("date-fns/format");
 
 class App extends React.Component {
   constructor(props) {
@@ -42,14 +43,22 @@ class App extends React.Component {
       return (
         <tr>
           <td>
-            {repo.owner.login}
             <img src={repo.owner.avatar_url} />
+            <a href={repo.owner.html_url}>{repo.owner.login}</a>
           </td>
-          <td>{repo.owner.html_url}</td>
-          <td>{repo.name}</td>
-          <td>{repo.html_url}</td>
-          <td>{repo.created_at}</td>
-          <td>{repo.updated_at}</td>
+          <td>
+            <a href={repo.html_url}>{repo.name}</a>
+          </td>
+          <td>
+            {format(Date.parse(repo.created_at), "hh:mm A")}
+            <br />
+            {format(Date.parse(repo.created_at), "MMM Do, YYYY")}
+          </td>
+          <td>
+            {format(Date.parse(repo.updated_at), "hh:mm A")}
+            <br />
+            {format(Date.parse(repo.updated_at), "MMM Do, YYYY")}
+          </td>
           <td>{repo.stargazers_count}</td>
           <td>{repo.watchers_count}</td>
           <td>{repo.forks_count}</td>
@@ -57,20 +66,20 @@ class App extends React.Component {
       );
     });
     return (
-      <table>
-        <tr>
-          <th>Username</th>
-          <th>User URL</th>
-          <th>Repo Name</th>
-          <th>Repo Link</th>
-          <th>Created At</th>
-          <th>Last Updated</th>
-          <th>Stars</th>
-          <th>Watchers</th>
-          <th>Forks</th>
-        </tr>
-        {reposDisplay}
-      </table>
+      <div id="reposDisplay">
+        <table>
+          <tr>
+            <th>Username</th>
+            <th>Repo Name</th>
+            <th>Created</th>
+            <th>Last Updated</th>
+            <th>Stars</th>
+            <th>Watchers</th>
+            <th>Forks</th>
+          </tr>
+          {reposDisplay}
+        </table>
+      </div>
     );
   }
   render() {

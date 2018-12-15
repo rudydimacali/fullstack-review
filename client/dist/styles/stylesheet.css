@@ -1,0 +1,43 @@
+body {
+  font-family: 'Noto Sans SC', sans-serif;
+  color: rgb(86, 193, 255);
+  background-image: url('https://cdn.inspirationhut.net/wp-content/uploads/2014/09/crisp-lined-paper-seamless-pattern.jpg');
+}
+
+.topnav {
+  margin: 0 auto;
+}
+
+table {
+  font-family: 'Aleo', serif;
+  margin: 0 auto;
+  border-collapse: collapse;
+  box-shadow: 0 0 3px 3px rgba(86, 193, 255, 0.5);
+}
+
+th, td {
+  width: 150px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-collapse: collapse;
+  color: rgb(86, 193, 255);
+  padding: 10px;
+  font-size: 22px;
+  text-align: center;
+}
+
+#reposDisplay {
+  margin-top: 100px;
+}
+
+img {
+  height: 100px;
+  width: 100px;
+}
+
+a {
+  color: rgb(86,193,255);
+}
+
+a:hover {
+  color: rgb(163, 221, 255);
+}
