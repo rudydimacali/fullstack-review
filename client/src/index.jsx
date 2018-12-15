@@ -13,7 +13,9 @@ class App extends React.Component {
     };
     this.RepoTableDisplay = this.RepoTableDisplay.bind(this);
   }
-
+  componentDidMount() {
+    this.search("rudydimacali");
+  }
   search(term) {
     console.log(`${term} was searched`);
     $.ajax({
